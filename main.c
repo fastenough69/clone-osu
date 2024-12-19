@@ -1,5 +1,3 @@
-#include "headers\InterfaceWindow.h"
-
 /*
     Нужено разобрраться с отностилеьными путям к файлам текстур. +
     Нужно сделать меню с текстурами и анимациями:
@@ -14,6 +12,8 @@
     
 
 */
+
+#include "headers\InterfaceWindow.h"
 
 int main(void){
     InitWindow(WIDHT_RES, HEIGHT_RES, "Killer OSU!");
@@ -75,7 +75,7 @@ int main(void){
                 click = false;
             }
 
-            if(temp->lifetime.timeLife <= 0){
+            if(temp->lifetime.time <= 0){
                 PlaySound(nonAction);
                 misstakes++;
                 UnloadTexture(temp->frame);
@@ -84,7 +84,7 @@ int main(void){
                 temp = initCircle(img_circle);
             }
             
-            temp->lifetime.timeLife -= GetFrameTime();
+            temp->lifetime.time -= GetFrameTime();
             // if (temp->lifetime.timeLife > 0 && temp->frame.width <= temp->approach.height && temp->frame.height <= temp->approach.height){
             //     temp->approach.height -= GetFrameTime() / 2.0f;
             //     temp->approach.width -= GetFrameTime() / 2.0f;

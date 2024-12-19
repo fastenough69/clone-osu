@@ -14,7 +14,7 @@ NewCircle *initCircle(Image img){
         __myrand((int)r, WIDHT_RES - (int)r), 
         __myrand((int)r, HEIGHT_RES - (int)r)
     };
-    circle->lifetime.timeLife = 0.75;
+    circle->lifetime.time = 0.75;
     circle->cl = RED;
     return circle;
 }

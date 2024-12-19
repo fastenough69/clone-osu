@@ -10,7 +10,7 @@
 // #define FPS_APPROACH 0.5
 
 typedef struct {
-    float timeLife;
+    float time;
 }Timer;
 
 typedef struct {
