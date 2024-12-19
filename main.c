@@ -1,5 +1,20 @@
 #include "headers\InterfaceWindow.h"
 
+// void SetWorkingDirectoryToExecutablePath() {
+//     char exePath[MAX_PATH];
+//     GetModuleFileName(NULL, exePath, MAX_PATH);
+
+//     // Удаляем имя файла из пути, оставляя только директорию
+//     for (int i = strlen(exePath) - 1; i >= 0; --i) {
+//         if (exePath[i] == '\\') {
+//             exePath[i] = '\0';
+//             break;
+//         }
+//     }
+
+//     _chdir(exePath); // Устанавливаем рабочую директорию
+// }
+
 int main(void){
     InitWindow(WIDHT_RES, HEIGHT_RES, "Killer OSU!");
     SetTargetFPS(240);

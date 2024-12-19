@@ -3,11 +3,13 @@
 
 #include "raylib.h"
 #include <stdlib.h>
-#include <unistd.h>
-#include <math.h>
+// #include <unistd.h>
+// #include <direct.h>
+// #include <windows.h>
 
 #define WIDHT_RES 1000
 #define HEIGHT_RES 800
+
 // #define FPS_APPROACH 0.5
 
 typedef struct {

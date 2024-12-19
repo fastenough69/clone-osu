@@ -1,7 +1,7 @@
 GCC= gcc
 FLAG_O= -o
-CFLAGS= -I C:/raylib/w64devkit/x86_64-w64-mingw32/include -O2
-ENDFLAG= -L C:/raylib/w64devkit/x86_64-w64-mingw32/lib -lraylib -lopengl32 -lgdi32 -lwinmm
+CFLAGS= -I ./include/
+ENDFLAG= -L ./lib/ -lraylib -lopengl32 -lgdi32 -lwinmm
 
 SRCDIR= src
 TARGET= main.exe
