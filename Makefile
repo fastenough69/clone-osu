@@ -14,7 +14,7 @@ $(TARGET):
 	$(GCC) $(MAIN_SRC) $(SRC_FILES) $(CFLAGS) $(ENDFLAG) $(FLAG_O) $(TARGET) 
 
 clean:
-	del $(DIR)\$(TARGET)
+	del $(TARGET)
 
 rebuild:
 	make clean

@@ -1,7 +1,8 @@
 #include "..\headers\InterfaceWindow.h"
 
-void MenuWindow(Color bgColor, Button btn, Texture2D frame, Vector2 mouse){
-    DrawRectangle(btn.rec.x, btn.rec.y, btn.rec.width, btn.rec.height, YELLOW);
+void MenuWindow(Color bgColor, NewButton btn, Texture2D frame, Vector2 mouse){
+    // DrawRectangle(btn.rec.x, btn.rec.y, btn.rec.width, btn.rec.height, btn.cl);
+    DrawTexture(btn.frame, btn.crd.x, btn.crd.y, btn.cl);
     DrawTexture(frame, mouse.x - frame.width / 2.0f, mouse.y - frame.height / 2.0f, RAYWHITE);
 }
 
@@ -16,4 +17,12 @@ void PlaygroundWindow(Texture2D frame, NewCircle temp, Vector2 mouse, int total,
     DrawText(TextFormat("Total: %d", total), 900, 700, 20, BLACK);
     DrawText(TextFormat("Mistakes: %d", misstakes), 850, 600, 20, BLACK);
     DrawTexture(frame, mouse.x - frame.width / 2.0f, mouse.y - frame.height / 2.0f, RAYWHITE);
+}
+
+NewButton *initButton(char *filename){
+    NewButton *btn = malloc(sizeof(NewButton));
+    btn->frame = LoadTexture(filename);
+    btn->crd = (Vector2){WIDHT_RES / 2.0f - btn->frame.width / 2.0f, HEIGHT_RES / 2.0f - btn->frame.height / 2.0f};
+    btn->cl = RAYWHITE;
+    return btn;
 }
