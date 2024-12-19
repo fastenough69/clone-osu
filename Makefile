@@ -1,7 +1,7 @@
 GCC= gcc
 FLAG_O= -o
 CFLAGS= -I ./include/
-ENDFLAG= -L ./lib/ -lraylib -lopengl32 -lgdi32 -lwinmm
+ENDFLAG= -L ./lib/ -lraylib -lopengl32 -lgdi32 -lwinmm -mwindows
 
 SRCDIR= src
 TARGET= main.exe
@@ -11,7 +11,7 @@ MAIN_SRC= main.c
 all: $(TARGET)
 
 $(TARGET):
-	$(GCC) $(MAIN_SRC) $(SRC_FILES) $(CFLAGS) $(ENDFLAG) $(FLAG_O) $(TARGET) 
+	$(GCC) $(MAIN_SRC) $(SRC_FILES) $(CFLAGS) $(ENDFLAG) $(FLAG_O) $(TARGET)
 
 clean:
 	del $(TARGET)
