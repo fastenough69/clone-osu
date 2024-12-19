@@ -7,13 +7,11 @@ SRCDIR= src
 TARGET= main.exe
 SRC_FILES= $(SRCDIR)\circle_obj.c $(SRCDIR)\InterfaceWindow.c
 MAIN_SRC= main.c
-DIR= builds
-
 
 all: $(TARGET)
 
 $(TARGET):
-	$(GCC) $(MAIN_SRC) $(SRC_FILES) $(CFLAGS) $(ENDFLAG) $(FLAG_O) $(DIR)\$(TARGET) 
+	$(GCC) $(MAIN_SRC) $(SRC_FILES) $(CFLAGS) $(ENDFLAG) $(FLAG_O) $(TARGET) 
 
 clean:
 	del $(DIR)\$(TARGET)

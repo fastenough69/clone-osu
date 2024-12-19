@@ -3,6 +3,9 @@
 
 #include "raylib.h"
 #include <stdlib.h>
+// #include <direct.h>    // Для _chdir
+// #include <libloaderapi.h> // Для GetModuleFileName
+// #include <stdio.h>
 // #include <unistd.h>
 // #include <direct.h>
 // #include <windows.h>

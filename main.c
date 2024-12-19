@@ -21,16 +21,17 @@
 
 //     // Удаляем имя файла из пути, оставляя только директорию
 //     for (int i = strlen(exePath) - 1; i >= 0; --i) {
-//         if (exePath[i] == '\\') {
+//         if (exePath[i] == '/') {
 //             exePath[i] = '\0';
 //             break;
 //         }
 //     }
-
+//     printf("%s", exePath);
 //     _chdir(exePath); // Устанавливаем рабочую директорию
 // }
 
 int main(void){
+    // SetWorkingDirectoryToExecutablePath();
     InitWindow(WIDHT_RES, HEIGHT_RES, "Killer OSU!");
     SetTargetFPS(240);
     Image icon = LoadImage("modeles/target_icon_264154.png");
