@@ -1,13 +1,14 @@
 /*
     Нужено разобрраться с отностилеьными путям к файлам текстур. +
     Нужно сделать меню с текстурами и анимациями:
-        -сделать кнопку старта +
+        -сделать кнопку старта ++
         -сделать возможность менять сложность:
             --изменять время жизни круга
             --изменять размер круга
         -сделать возможность создавать сколько времени будет идти раунд
-        -*сделать возможность изменения чувствательности мыши мыши
+        -*сделать возможность изменения чувствательности мыши
     Нужно сделать новый подсчет очков опираясь на сложность
+    Нужно сделать разрешение динимичекое
     Нужно сделать возможность взаимодействия не только с кнопками мыши
     
 
@@ -29,7 +30,9 @@ int main(void){
     Color bgColor = GRAY;
     Vector2 mouse;
     // Texture2D newBtn = LoadTexture("modeles/btnDefault.png");
-    NewButton *new = initButton("modeles/btnDefault.png");
+    NewButton *before = initButton("modeles/textDefault.png");
+    NewButton *after = initButton("modeles/btnDefault.png");
+    NewButton *currentBtn = NULL;
 
     Image img_circle = initTextureCircle();
     // Image appr = LoadImage("modeles/approachcircle.png");
@@ -39,17 +42,18 @@ int main(void){
     Texture2D frame = LoadTextureFromImage(cur);
 
     double TimeToStart = 3.0;
-    unsigned int total = 0, misstakes = 0;
+    unsigned int total = 0, mistakes = 0;
 
     HideCursor();
     bool start_flag = false;
 
     while(!WindowShouldClose()){
         mouse = GetMousePosition();
-        if(CheckCollisionPointRec(mouse, (Rectangle){new->crd.x, new->crd.y, new->frame.width, new->frame.height})){
-            new->cl.a = 150;
+        if(CheckCollisionPointRec(mouse, (Rectangle){before->crd.x, before->crd.y, before->frame.width, before->frame.height})){
+            // before->cl.a = 150;
+            currentBtn = after;
             if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) start_flag = true;
-        } else new->cl.a = 255;
+        } else currentBtn = before;
 
         if(start_flag) TimeToStart -= GetFrameTime();
 
@@ -67,7 +71,7 @@ int main(void){
 
             if(!CheckCollisionPointCircle(mouse, temp->center, temp->frame.width / 2.0f - 5) && click){
                 PlaySound(nonAction);
-                misstakes++;
+                mistakes++;
                 UnloadTexture(temp->frame);
                 // UnloadTexture(temp->approach);
                 free(temp);
@@ -77,7 +81,7 @@ int main(void){
 
             if(temp->lifetime.time <= 0){
                 PlaySound(nonAction);
-                misstakes++;
+                mistakes++;
                 UnloadTexture(temp->frame);
                 // UnloadTexture(temp->approach);
                 free(temp);
@@ -92,8 +96,8 @@ int main(void){
         }
         BeginDrawing();
             ClearBackground(bgColor);
-            if(!start_flag) MenuWindow(bgColor, *new, frame, mouse);
-            if(start_flag) PlaygroundWindow(frame, *temp, mouse, total, misstakes, TimeToStart);
+            if(!start_flag) MenuWindow(bgColor, *currentBtn, frame, mouse);
+            if(start_flag) PlaygroundWindow(frame, *temp, mouse, total, mistakes, TimeToStart);
         EndDrawing();
 
     }
@@ -102,8 +106,11 @@ int main(void){
     // UnloadImage(appr);
     UnloadImage(cur);
     UnloadImage(img_circle);
-    UnloadTexture(new->frame);
-    free(new);
+    UnloadTexture(before->frame);
+    UnloadTexture(after->frame);
+    free(after);
+    free(before);
+    free(currentBtn);
     UnloadSound(actionClick);
     UnloadSound(nonAction);
     UnloadTexture(frame);
