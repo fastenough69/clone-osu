@@ -21,8 +21,8 @@ int main(void){
     SetTargetFPS(240);
     Image icon = LoadImage("modeles/target_icon_264154.png");
     SetWindowIcon(icon);
-
     InitAudioDevice();
+    ToggleFullscreen();
 
     Sound actionClick = LoadSound("modeles/soft-hitnormal.wav");
     Sound nonAction = LoadSound("modeles/sectionfail.wav");
