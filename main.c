@@ -14,7 +14,7 @@
 
 */
 
-#include "headers\InterfaceWindow.h"
+#include "headers/InterfaceWindow.h"
 
 int main(void){
     InitWindow(WIDHT_RES, HEIGHT_RES, "Killer OSU!");
@@ -22,7 +22,11 @@ int main(void){
     Image icon = LoadImage("modeles/target_icon_264154.png");
     SetWindowIcon(icon);
     InitAudioDevice();
-    ToggleFullscreen();
+
+    SetWindowSize(1920, 1080);
+
+    // ToggleBorderlessWindowed();
+    // ToggleFullscreen();
 
     Sound actionClick = LoadSound("modeles/soft-hitnormal.wav");
     Sound nonAction = LoadSound("modeles/sectionfail.wav");

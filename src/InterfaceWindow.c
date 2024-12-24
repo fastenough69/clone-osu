@@ -1,4 +1,4 @@
-#include "..\headers\InterfaceWindow.h"
+#include "../headers/InterfaceWindow.h"
 
 void MenuWindow(Color bgColor, NewButton btn, Texture2D frame, Vector2 mouse){
     // DrawRectangle(btn.rec.x, btn.rec.y, btn.rec.width, btn.rec.height, btn.cl);
