@@ -5,7 +5,7 @@ int __myrand(const int cord1, const int cord2){
     return result;
 }
 
-NewCircle *initCircle(Image img){
+NewCircle *initCircle(Image img, float time){
     NewCircle *circle = malloc(sizeof(NewCircle));
     circle->frame = LoadTextureFromImage(img);
     // circle->approach = LoadTextureFromImage(appr);
@@ -14,14 +14,14 @@ NewCircle *initCircle(Image img){
         __myrand((int)r, WIDHT_RES - (int)r), 
         __myrand((int)r, HEIGHT_RES - (int)r)
     };
-    circle->lifetime.time = 2.0;
+    circle->lifetime.time = time;
     circle->cl = RED;
     return circle;
 }
 
-Image initTextureCircle(){
+Image initTextureCircle(int circle_r){
     Image temp = LoadImage("modeles/hitcircle.png");
-    ImageResize(&temp, 100, 100);
+    ImageResize(&temp, circle_r, circle_r);
     return temp;
 }
 

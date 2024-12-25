@@ -3,9 +3,11 @@
 
 #include "raylib.h"
 #include <stdlib.h>
+#include <stdint.h>
+// #include <stdio.h>
 
-#define WIDHT_RES 1000
-#define HEIGHT_RES 800
+#define WIDHT_RES GetMonitorWidth(0)
+#define HEIGHT_RES GetMonitorHeight(0)
 
 // #define FPS_APPROACH 0.5
 
@@ -22,8 +24,8 @@ typedef struct {
 }NewCircle;
 
 int __myrand(const int cord1, const int cord2);
-NewCircle *initCircle(Image img);
-Image initTextureCircle();
+NewCircle *initCircle(Image img, float time);
+Image initTextureCircle(int circle_r);
 Image initImageCursor();
 
 #endif
