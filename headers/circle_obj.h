@@ -8,6 +8,7 @@
 
 #define WIDHT_RES GetMonitorWidth(0)
 #define HEIGHT_RES GetMonitorHeight(0)
+#define BASE_SIZE_CIRCLE 100
 
 // #define FPS_APPROACH 0.5
 

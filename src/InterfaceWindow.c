@@ -1,13 +1,10 @@
 #include "../headers/InterfaceWindow.h"
 
-void MenuWindow(Color bgColor, NewButton btn, Texture2D frame, Vector2 mouse, Slider sld){
+void MenuWindow(Color bgColor, NewButton btn, Texture2D frame, Vector2 mouse, Slider sldTime, Slider sldSize){
     // DrawRectangle(btn.rec.x, btn.rec.y, btn.rec.width, btn.rec.height, btn.cl);
     DrawTexture(btn.frame, btn.crd.x, btn.crd.y, btn.cl);
-    DrawRectangleRounded((Rectangle){sld.rec.x, sld.rec.y, sld.full_widht, sld.rec.height}, sld.r, 5, RAYWHITE);
-    DrawRectangleRounded(sld.rec, sld.r, 5, sld.cl);
-    DrawCircle(sld.pos_circle.x, sld.pos_circle.y, sld.rad_circle, (Color){255, 153, 153, 255});
-    DrawText(TextFormat("%.1f", sld.value), sld.value_pos.x, sld.value_pos.y, 17, BLACK);
-    DrawText(sld.text_info, sld.text_info_pos.x, sld.text_info_pos.y, 17, BLACK);
+    DrawSlider(sldTime);
+    DrawSlider(sldSize);
     DrawTexture(frame, mouse.x - frame.width / 2.0f, mouse.y - frame.height / 2.0f, RAYWHITE);
 }
 
@@ -43,6 +40,15 @@ Slider *initSlider(char *text, float cord_y){
     sld->rad_circle = 10.0;
     sld->pos_circle = (Vector2){sld->rec.x + sld->rec.width, sld->rec.y + sld->rad_circle / 2.0f};
     sld->value_pos = (Vector2){sld->pos_circle.x, sld->pos_circle.y + 10};
-    sld->value = sld->rec.width / 100.0f;
+    // sld->value = sld->rec.width / 100.0f;
+    sld->value = 0;
     return sld;
+}
+
+void DrawSlider(Slider sld){
+    DrawRectangleRounded((Rectangle){sld.rec.x, sld.rec.y, sld.full_widht, sld.rec.height}, sld.r, 5, RAYWHITE);
+    DrawRectangleRounded(sld.rec, sld.r, 5, sld.cl);
+    DrawCircle(sld.pos_circle.x, sld.pos_circle.y, sld.rad_circle, (Color){255, 153, 153, 255});
+    DrawText(TextFormat("%.1f", sld.value), sld.value_pos.x, sld.value_pos.y, 17, BLACK);
+    DrawText(sld.text_info, sld.text_info_pos.x, sld.text_info_pos.y, 17, BLACK);
 }
