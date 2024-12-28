@@ -11,7 +11,7 @@ NewCircle *initCircle(Image img, float time){
     // circle->approach = LoadTextureFromImage(appr);
     float r = circle->frame.width / 2.0f - 5;
     circle->center = (Vector2){
-        __myrand((int)r, WIDHT_RES - (int)r), 
+        __myrand((int)r + 400, WIDHT_RES - (int)400 - r), 
         __myrand((int)r, HEIGHT_RES - (int)r)
     };
     circle->lifetime.time = time;

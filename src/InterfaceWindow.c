@@ -9,16 +9,17 @@ void MenuWindow(Color bgColor, NewButton btn, Texture2D frame, Vector2 mouse, Sl
     DrawTexture(frame, mouse.x - frame.width / 2.0f, mouse.y - frame.height / 2.0f, RAYWHITE);
 }
 
-void PlaygroundWindow(Texture2D frame, NewCircle temp, Vector2 mouse, int total, int misstakes, double StartTime){
+void PlaygroundWindow(Texture2D frame, NewCircle temp, Vector2 mouse, int total, int misstakes, double StartTime, NewButton repeat){
     if(StartTime > 0){
         DrawText(TextFormat("%.1lf", StartTime), 100, 200, 20, BLACK);
     }
+    DrawTexture(repeat.frame, repeat.crd.x, repeat.crd.y, repeat.cl);
     // DrawCircleLines((int)temp.center.x, (int)temp.center.y, temp.frame.width / 2.0f - 5, GREEN);
     // DrawTexture(temp.approach, temp.center.x - temp.approach.width / 2.0f, temp.center.y - temp.approach.height / 2.0f, temp.cl);
     DrawTexture(temp.frame, temp.center.x - temp.frame.width / 2.0f, temp.center.y - temp.frame.height / 2.0f, temp.cl);
     DrawText(TextFormat("Current FPS: %d", GetFPS()), 100, 100, 20, BLACK);
-    DrawText(TextFormat("Total: %d", total), WIDHT_RES - 100, HEIGHT_RES - 100, 20, BLACK);
-    DrawText(TextFormat("Mistakes: %d", misstakes), WIDHT_RES - 150, HEIGHT_RES - 200, 20, BLACK);
+    DrawText(TextFormat("x%d", total), WIDHT_RES - 300, HEIGHT_RES - 100, 20, BLACK);
+    DrawText(TextFormat("Total: %d", misstakes), WIDHT_RES - 300, HEIGHT_RES - 200, 20, BLACK);
     DrawTexture(frame, mouse.x - frame.width / 2.0f, mouse.y - frame.height / 2.0f, RAYWHITE);
 }
 

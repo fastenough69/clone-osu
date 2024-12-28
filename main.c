@@ -2,15 +2,15 @@
     Нужено разобрраться с отностилеьными путям к файлам текстур. +
     Нужно сделать меню с текстурами и анимациями:
         -сделать кнопку старта ++
-        -сделать возможность менять сложность:
+        -сделать возможность менять сложность:++
             --изменять время жизни круга ++
             --изменять размер круга++
         -сделать возможность создавать сколько времени будет идти раунд
         -*сделать возможность изменения чувствательности мыши
-    Нужно сделать новый подсчет очков опираясь на сложность
+    Нужно сделать новый подсчет очков опираясь на сложность +-
+    Нужно сделать рестарт++
     Нужно сделать разрешение динимичекое+
     Нужно сделать возможность взаимодействия не только с кнопками мыши
-    Вынести попадание и промах в отдельную одну функцию
 */
 
 // #include "headers/InterfaceWindow.h"
@@ -18,14 +18,12 @@
 
 int main(void){
     InitWindow(WIDHT_RES, HEIGHT_RES, "Killer OSU!");
-    SetTargetFPS(144);
+    SetTargetFPS(200);
     Image icon = LoadImage("modeles/target_icon_264154.png");
     SetWindowIcon(icon);
     InitAudioDevice();
     
-    // SetWindowSize(WIDHT_RES, HEIGHT_RES);
-    
-    // ToggleBorderlessWindowed();
+
     ToggleFullscreen();
 
     Sound actionClick = LoadSound("modeles/soft-hitnormal.wav");
@@ -36,6 +34,9 @@ int main(void){
     NewButton *before = initButton("modeles/textDefault.png");
     NewButton *after = initButton("modeles/btnDefault.png");
     NewButton *currentBtn = NULL;
+    NewButton *repeat = initButton("modeles/Default.png");
+        repeat->crd.x = WIDHT_RES - 100;
+        repeat->crd.y = HEIGHT_RES - 100;
 
     Image img_circle = initTextureCircle(BASE_SIZE_CIRCLE);
     // Image appr = LoadImage("modeles/approachcircle.png");
@@ -44,12 +45,13 @@ int main(void){
     Slider *sldTime = initSlider("Change lifetime", 150);
     Slider *sldSize = initSlider("Change size circle", 250);
     Slider *sldSens = initSlider("Change sens", 350);
+    // Slider *sldTimeRound = initSlider("Time round", 450);
 
     Image cur = initImageCursor();
     Texture2D frame = LoadTextureFromImage(cur);
 
     double TimeToStart = 3.0;
-    unsigned int total = 0, mistakes = 0;
+    unsigned int combo = 0, total = 0;
 
     HideCursor();
     bool start_flag = false;
@@ -113,22 +115,29 @@ int main(void){
 
         if(start_flag) TimeToStart -= GetFrameTime();
 
+
         if(start_flag && TimeToStart <= 0){
             bool click = IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
             if(CheckCollisionPointCircle(mouse, temp->center, temp->frame.width / 2.0f - 5) && click){
                 PlaySound(actionClick);
-                total++;
+                combo++;
+                total += ((500.0f / (sldTime->value - temp->lifetime.time)) * combo) / (sldSize->value / 100.0f + sldTime->value / 10.0f);
                 UnloadTexture(temp->frame);
                 // UnloadTexture(temp->approach);
                 free(temp);
                 temp = initCircle(img_circle, sldTime->value);
-                temp->frame.width = temp->frame.height = sldSize->value; //???
+                temp->frame.width = temp->frame.height = sldSize->value;
                 click = false;
             }
 
             if(!CheckCollisionPointCircle(mouse, temp->center, temp->frame.width / 2.0f - 5) && click){
                 PlaySound(nonAction);
-                mistakes++;
+                combo = 0;
+            }
+
+            if(temp->lifetime.time <= 0){
+                PlaySound(nonAction);
+                combo = 0;
                 UnloadTexture(temp->frame);
                 // UnloadTexture(temp->approach);
                 free(temp);
@@ -136,18 +145,14 @@ int main(void){
                 temp->frame.width = temp->frame.height = sldSize->value; //???
                 click = false;
             }
-
-            if(temp->lifetime.time <= 0){
-                PlaySound(nonAction);
-                mistakes++;
-                UnloadTexture(temp->frame);
-                // UnloadTexture(temp->approach);
-                free(temp);
-                temp = initCircle(img_circle, sldTime->value);
-                temp->frame.width = temp->frame.height = sldSize->value; //???
-            }
             
             temp->lifetime.time -= GetFrameTime();
+            if(CheckCollisionPointRec(mouse, (Rectangle){repeat->crd.x, repeat->crd.y, repeat->frame.width, repeat->frame.height}) && click){
+                TimeToStart = 3.0;
+                combo = 0;
+                total = 0;
+            }
+            // if(combo == 100) WaitTime(100);
             // if (temp->lifetime.timeLife > 0 && temp->frame.width <= temp->approach.height && temp->frame.height <= temp->approach.height){
             //     temp->approach.height -= GetFrameTime() / 2.0f;
             //     temp->approach.width -= GetFrameTime() / 2.0f;
@@ -158,7 +163,8 @@ int main(void){
         BeginDrawing();
             ClearBackground(bgColor);
             if(!start_flag) MenuWindow(bgColor, *currentBtn, frame, mouse, *sldTime, *sldSize, *sldSens);
-            if(start_flag) PlaygroundWindow(frame, *temp, mouse, total, mistakes, TimeToStart);
+            if(start_flag) PlaygroundWindow(frame, *temp, mouse, combo, total, TimeToStart, *repeat);
+            DrawRectangleLines(400 + temp->frame.width - 5,temp->frame.width - 5, 1120, HEIGHT_RES, GREEN);
         EndDrawing();
 
     }
@@ -169,6 +175,8 @@ int main(void){
     UnloadImage(img_circle);
     UnloadTexture(before->frame);
     UnloadTexture(after->frame);
+    UnloadTexture(repeat->frame);
+    free(repeat);
     free(after);
     free(before);
     UnloadSound(actionClick);
