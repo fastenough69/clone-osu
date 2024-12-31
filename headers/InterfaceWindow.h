@@ -22,8 +22,8 @@ typedef struct {
     float rad_circle;
 } Slider;
 
-void MenuWindow(Color bgColor, NewButton btn, Texture2D frame, Vector2 mouse, Slider sldTime, Slider sldSize);
-void PlaygroundWindow(Texture2D frame, NewCircle temp, Vector2 mouse, int total, int misstakes, double StartTime);
+void MenuWindow(Color bgColor, NewButton btn, Texture2D frame, Vector2 mouse, Slider sldTime, Slider sldSize, Slider sldSens);
+void PlaygroundWindow(Texture2D frame, NewCircle temp, Vector2 mouse, int total, int misstakes, double StartTime, NewButton repeat);
 NewButton *initButton(char *filename);
 Slider *initSlider(char *text, float cord_y);
 void DrawSlider(Slider sld);

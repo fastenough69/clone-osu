@@ -1,20 +1,10 @@
 #include "../headers/myutils.h"
 
-// void UnloadAllAfterClose(){
-// //     UnloadImage(icon);
-// //     // UnloadImage(appr);
-// //     UnloadImage(cur);
-// //     UnloadImage(img_circle);
-// //     UnloadTexture(new->frame);
-// //     free(new);
-// //     UnloadSound(actionClick);
-// //     UnloadSound(nonAction);
-// //     UnloadTexture(frame);
-// //     // UnloadTexture(temp->approach);
-// //     UnloadTexture(temp->frame);
-// //     free(temp);
-// //     CloseAudioDevice();
-// //     CloseWindow();
+// void ChangeMouseSpeed(float newValue, int flag){
+//     int *curSpeed;
+//     SystemParametersInfo(SPI_GETMOUSESPEED, 0, curSpeed, 0);
+//     if(flag) SystemParametersInfo(SPI_GETMOUSESPEED, 0, &newValue, SPIF_UPDATEINIFILE | SPIF_SENDCHANGE);
+//     else SystemParametersInfo(SPI_GETMOUSESPEED, 0, curSpeed, SPIF_UPDATEINIFILE | SPIF_SENDCHANGE);
 // }
 
 void ColSliders(Vector2 mouse, Slider *sld, float value){
@@ -32,4 +22,12 @@ void ColSliders(Vector2 mouse, Slider *sld, float value){
             sld->pos_circle.x = sld->rec.x + sld->full_widht;
         }
     }
+}
+
+bool II_logic(NewCircle temp, Slider sldTime){
+    if(temp.lifetime.time <= (sldTime.value / 2.0f)){
+        SetMousePosition(temp.center.x, temp.center.y);
+        return true;
+    }
+    return false;
 }

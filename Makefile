@@ -5,7 +5,7 @@ ENDFLAG= -L ./lib/ -lraylib -framework OpenGL -framework Cocoa -framework IOKit
 
 SRCDIR= src
 TARGET= main
-SRC_FILES= $(SRCDIR)/circle_obj.c $(SRCDIR)/InterfaceWindow.c
+SRC_FILES= $(SRCDIR)/circle_obj.c $(SRCDIR)/InterfaceWindow.c $(SRCDIR)/myutils.c
 MAIN_SRC= main.c
 
 all: $(TARGET)
